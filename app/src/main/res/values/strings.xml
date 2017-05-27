@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BookStore</string>
+    <string name="sortby_spinner">Sort by</string>
+    <string name="sortby">Sort by</string>
+    <string name="radio_year">Year</string>
+    <string name="radio_title">Title</string>
+</resources>
