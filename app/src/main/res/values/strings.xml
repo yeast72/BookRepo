@@ -4,5 +4,5 @@
     <string name="sortby">Sort by</string>
     <string name="radio_year">Year</string>
     <string name="radio_title">Title</string>
-    <string name="balance">1000.0</string>
+    <string name="balanceText">0.0</string>
 </resources>

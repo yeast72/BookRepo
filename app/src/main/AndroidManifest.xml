@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ListBook.UserActivity" />
+        <activity android:name=".ListBook.CartActivity"></activity>
     </application>
 
 </manifest>

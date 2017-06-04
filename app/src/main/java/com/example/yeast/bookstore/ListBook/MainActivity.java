@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filterable;
 import android.widget.ListView;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements BookListView{
     private ListView bookListView;
 
     EditText inputSearch;
-    private MenuItem menuBalance, menuCart;
+    private Button menuBalance, menuCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,15 @@ public class MainActivity extends AppCompatActivity implements BookListView{
 
         bookListView = (ListView) findViewById(R.id.listview_books);
         inputSearch = (EditText) findViewById(R.id.input_search);
+        menuBalance = (Button) findViewById(R.id.menuBalance);
+        menuCart =  (Button) findViewById(R.id.menuCart);
+
         bookArrayAdapter = createAdapter(new ArrayList<Book>());
         bookListView.setAdapter(bookArrayAdapter);
 
         presenter = new BookListPresenter(repository,this);
         presenter.initialize();
+
         inputSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -117,31 +122,13 @@ public class MainActivity extends AppCompatActivity implements BookListView{
         return new ArrayAdapter<Book>(this,android.R.layout.simple_list_item_1,books);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+    public void goToBalance(View view) {
+        Intent intent = new Intent(this, UserActivity.class);
+        startActivity(intent);
+    }
 
-        menuBalance = menu.findItem(R.id.menuBalance);
-        menuCart = menu.findItem(R.id.menuCart);
-
-        menuBalance.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-
-        menuCart.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                Intent intent = new Intent(MainActivity.this, CartActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
+    public void goToCart(View view) {
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
     }
 }
