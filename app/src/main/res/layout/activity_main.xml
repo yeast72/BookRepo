@@ -6,6 +6,36 @@
     android:layout_height="match_parent"
     tools:context="com.example.yeast.bookstore.ListBook.MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SEARCH"
+        android:textSize="30dp"
+        android:textColor="#000000"
+        android:layout_above="@+id/input_search"
+        android:layout_alignStart="@+id/input_search" />
+
+    <Button
+        android:id="@+id/menuBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BALANCE"
+        android:onClick="goToBalance"
+        android:background="#C9C5C5"
+        android:textColor="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/menuCart" />
+    <Button
+        android:id="@+id/menuCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CART"
+        android:onClick="goToCart"
+        android:background="#959595"
+        android:textColor="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
     <EditText
         android:id="@+id/input_search"
         android:layout_width="match_parent"
@@ -13,7 +43,10 @@
         android:hint="Search books"
         android:inputType="textVisiblePassword"
         android:layout_marginLeft="30px"
-        android:layout_marginRight="30px"/>
+        android:layout_marginRight="30px"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/menuBalance"
+        android:layout_centerHorizontal="true" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,20 +63,25 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sortby"
                 android:layout_marginLeft="10px"/>
+
             <RadioButton
                 android:id="@+id/radio_sort_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_title"
                 android:layout_marginLeft="10px"
-                android:onClick="onRatioButtonClicked"/>
+                android:onClick="onRatioButtonClicked"
+                android:text="@string/radio_title" />
+
             <RadioButton
                 android:id="@+id/radio_sort_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_year"
                 android:layout_marginLeft="10px"
-                android:onClick="onRatioButtonClicked"/>
+                android:onClick="onRatioButtonClicked"
+                android:text="@string/radio_year"
+                android:layout_marginStart="18dp"
+                android:layout_below="@+id/input_search"
+                android:layout_toEndOf="@+id/layout_sort" />
         </RadioGroup>
     </LinearLayout>
 
@@ -51,7 +89,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listview_books"
-        android:layout_below="@id/layout_sort">
+        android:layout_below="@+id/layout_sort"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp">
     </ListView>
+
+
 
 </RelativeLayout>
