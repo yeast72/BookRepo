@@ -3,6 +3,7 @@ package com.example.yeast.bookstore.ListBook;
 import com.example.yeast.bookstore.model.Book;
 import com.example.yeast.bookstore.model.BookRepository;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,14 +24,16 @@ class BookListPresenter implements Observer{
         this.repository = repository;
         this.view = view;
     }
-    public BookRepository sortByTitle() {
-       // Collections.sort(books);
-        return repository;
-    }
-
-    public BookRepository sortByYear() {
-        return  repository;
-    }
+//    public BookRepository sortByTitle() {
+//        final Collator c = Collator.getInstance();
+//
+//       // Collections.sort(books);
+//        return repository;
+//    }
+//
+//    public BookRepository sortByYear() {
+//        return  repository;
+//    }
 
     public void initialize() {
         repository.addObserver(this);

@@ -1,9 +1,12 @@
 package com.example.yeast.bookstore.ListBook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -20,13 +23,17 @@ import com.example.yeast.bookstore.model.BookRepository;
 import com.example.yeast.bookstore.model.JSONBookRepository;
 import com.example.yeast.bookstore.model.MockBookRepository;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity implements BookListView{
     BookListPresenter presenter;
     ArrayAdapter<Book> bookArrayAdapter;
     private ListView bookListView;
+
     EditText inputSearch;
+    private MenuItem menuBalance, menuCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,19 +81,67 @@ public class MainActivity extends AppCompatActivity implements BookListView{
         switch (view.getId()){
             case R.id.radio_sort_title:
                 if(checked) {
-                    presenter.sortByTitle();
+                    sortByTitle();
             }
                 break;
             case R.id.radio_sort_year:
                 if(checked) {
-                    presenter.sortByYear();
+                    sortByYear();
                 }
                 break;
         }
 
     }
 
+    private void sortByYear() {
+        final Collator c = Collator.getInstance();
+        bookArrayAdapter.sort(new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return c.compare(o1.getYear(), o2.getYear());
+            }
+        });
+    }
+
+    private void sortByTitle() {
+        final Collator c = Collator.getInstance();
+        bookArrayAdapter.sort(new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                return c.compare(o1.getTitle(), o2.getTitle());
+            }
+        });
+    }
+
     private ArrayAdapter<Book> createAdapter(ArrayList<Book> books) {
         return new ArrayAdapter<Book>(this,android.R.layout.simple_list_item_1,books);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        menuBalance = menu.findItem(R.id.menuBalance);
+        menuCart = menu.findItem(R.id.menuCart);
+
+        menuBalance.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        menuCart.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 }

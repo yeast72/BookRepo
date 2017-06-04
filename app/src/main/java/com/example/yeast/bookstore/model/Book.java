@@ -8,19 +8,19 @@ public class Book {
     private int id;
     private String title;
     private double price;
-    private int publicationYear;
+    private int year;
     private String imageUrl;
 
-    public Book(int id, String title, double price, int publicationYear) {
+    public Book(int id, String title, double price, int year) {
         this.id = id;
         this.title = title;
         this.price = price;
-        this.publicationYear = publicationYear;
+        this.year = year;
         this.imageUrl = null;
     }
 
     public String toString() {
-        return title + " " + publicationYear + " (" + price + ")";
+        return title + " " + year + " (" + price + ")";
     }
 
     public int getId() {
@@ -35,8 +35,8 @@ public class Book {
         return price;
     }
 
-    public int getPublicationYear() {
-        return publicationYear;
+    public int getYear() {
+        return year;
     }
 
     public String getImageUrl() {
