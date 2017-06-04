@@ -56,4 +56,16 @@
         android:onClick="addFund"
         />
 
+    <Button
+        android:id="@+id/userBookListBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e83333"
+        android:textColor="#ffffff"
+        android:text="YOUR BOOK LIST"
+        android:textSize="20dp"
+        android:onClick="goToUserBookList"
+        android:layout_below="@+id/fundBtn"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

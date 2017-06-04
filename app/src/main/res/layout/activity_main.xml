@@ -12,8 +12,8 @@
         android:text="SEARCH"
         android:textSize="30dp"
         android:textColor="#000000"
-        android:layout_alignBottom="@+id/menuBalance"
-        android:layout_alignEnd="@+id/layout_sort" />
+        android:layout_above="@+id/input_search"
+        android:layout_alignStart="@+id/input_search" />
 
     <Button
         android:id="@+id/menuBalance"
@@ -71,6 +71,17 @@
                 android:layout_marginLeft="10px"
                 android:onClick="onRatioButtonClicked"
                 android:text="@string/radio_title" />
+
+            <RadioButton
+                android:id="@+id/radio_sort_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:onClick="onRatioButtonClicked"
+                android:text="@string/radio_year"
+                android:layout_marginStart="18dp"
+                android:layout_below="@+id/input_search"
+                android:layout_toEndOf="@+id/layout_sort" />
         </RadioGroup>
     </LinearLayout>
 
@@ -83,15 +94,6 @@
         android:layout_marginTop="14dp">
     </ListView>
 
-    <RadioButton
-        android:id="@+id/radio_sort_year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10px"
-        android:onClick="onRatioButtonClicked"
-        android:text="@string/radio_year"
-        android:layout_marginStart="18dp"
-        android:layout_below="@+id/input_search"
-        android:layout_toEndOf="@+id/layout_sort" />
+
 
 </RelativeLayout>

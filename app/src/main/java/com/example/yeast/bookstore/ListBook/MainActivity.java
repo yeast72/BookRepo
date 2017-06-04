@@ -1,34 +1,36 @@
 package com.example.yeast.bookstore.ListBook;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import com.example.yeast.bookstore.R;
 import com.example.yeast.bookstore.model.Book;
 import com.example.yeast.bookstore.model.BookRepository;
 import com.example.yeast.bookstore.model.JSONBookRepository;
-import com.example.yeast.bookstore.model.MockBookRepository;
+import com.example.yeast.bookstore.model.User;
 
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity implements BookListView{
+    public static ArrayList<Book> cartList = new ArrayList<>();
+    public static User user = new User();
+
     BookListPresenter presenter;
     ArrayAdapter<Book> bookArrayAdapter;
     private ListView bookListView;
@@ -77,6 +79,27 @@ public class MainActivity extends AppCompatActivity implements BookListView{
     public void setBookList(ArrayList<Book> books) {
         bookArrayAdapter = createAdapter(books);
         bookListView.setAdapter(bookArrayAdapter);
+        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                alert.setMessage("Add to cart?");
+
+                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"Book is added!", Toast.LENGTH_SHORT).show();
+                        cartList.add((Book) bookListView.getItemAtPosition(position));
+                    }
+                });
+                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"Cancel", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                alert.setIcon(android.R.drawable.ic_dialog_alert);
+                alert.show();
+            }
+        });
     }
 
     @Override
@@ -86,36 +109,15 @@ public class MainActivity extends AppCompatActivity implements BookListView{
         switch (view.getId()){
             case R.id.radio_sort_title:
                 if(checked) {
-                    sortByTitle();
-            }
+                    presenter.sortByTitle();
+                }
                 break;
             case R.id.radio_sort_year:
                 if(checked) {
-                    sortByYear();
+                    presenter.sortByYear();
                 }
                 break;
         }
-
-    }
-
-    private void sortByYear() {
-        final Collator c = Collator.getInstance();
-        bookArrayAdapter.sort(new Comparator<Book>() {
-            @Override
-            public int compare(Book o1, Book o2) {
-                return c.compare(o1.getYear(), o2.getYear());
-            }
-        });
-    }
-
-    private void sortByTitle() {
-        final Collator c = Collator.getInstance();
-        bookArrayAdapter.sort(new Comparator<Book>() {
-            @Override
-            public int compare(Book o1, Book o2) {
-                return c.compare(o1.getTitle(), o2.getTitle());
-            }
-        });
     }
 
     private ArrayAdapter<Book> createAdapter(ArrayList<Book> books) {
@@ -131,4 +133,5 @@ public class MainActivity extends AppCompatActivity implements BookListView{
         Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
     }
+
 }

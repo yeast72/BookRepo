@@ -24,16 +24,6 @@ class BookListPresenter implements Observer{
         this.repository = repository;
         this.view = view;
     }
-//    public BookRepository sortByTitle() {
-//        final Collator c = Collator.getInstance();
-//
-//       // Collections.sort(books);
-//        return repository;
-//    }
-//
-//    public BookRepository sortByYear() {
-//        return  repository;
-//    }
 
     public void initialize() {
         repository.addObserver(this);
@@ -47,6 +37,11 @@ class BookListPresenter implements Observer{
         }
     }
 
+    public BookRepository sortByTitle() {
+        return repository;
+    }
 
-
+    public BookRepository sortByYear() {
+        return repository;
+    }
 }
