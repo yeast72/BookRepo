@@ -28,13 +28,13 @@ public class UserActivity extends AppCompatActivity {
         balanceText = (TextView) findViewById(R.id.balanceText);
         fundBtn = (Button) findViewById(R.id.fundBtn);
 
-        balanceText.setText(user.getBalance() + "");
+        balanceText.setText(String.format("%.2f",user.getBalance()));
     }
 
 
     public void addFund(View view) {
         user.setBalance(user.getBalance() + 100);
-        balanceText.setText(user.getBalance() + "");
+        balanceText.setText(String.format("%.2f",user.getBalance()));
 
     }
 

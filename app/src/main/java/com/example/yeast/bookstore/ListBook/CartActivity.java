@@ -43,7 +43,7 @@ public class CartActivity extends AppCompatActivity {
 
         balanceText = (TextView) findViewById(R.id.balanceText);
         purchaseBtn = (Button) findViewById(R.id.purchaseBtn);
-        balanceText.setText(user.getBalance() + "");
+        balanceText.setText(String.format("%.2f",user.getBalance()));
 
 
     }
@@ -60,11 +60,11 @@ public class CartActivity extends AppCompatActivity {
         AlertDialog.Builder builder = alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                if (checkCanPurchase() == true) {
+                if (check() == true) {
                     Toast.makeText(getApplicationContext(), "Completed!", Toast.LENGTH_SHORT).show();
                     balance = calculatePrice(MainActivity.cartList);
                     user.setBalance(user.getBalance() -  balance);
-                    balanceText.setText(user.getBalance() + "");
+                    balanceText.setText(String.format( "%.2f",user.getBalance()));
                     for (int i = 0; i < cartList.size(); i++) {
                         user.getBooksList().add(cartList.get(i));
                     }
@@ -81,16 +81,14 @@ public class CartActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Cancel", Toast.LENGTH_SHORT).show();
             }
         });
-        alert.setIcon(android.R.drawable.ic_dialog_alert);
         alert.show();
-
-
 
     }
 
-    public boolean checkCanPurchase(){
-        if (balance < user.getBalance())
+    public boolean check() {
+        if (user.getBalance() > balance)
             return true;
-        return false;
+        else
+            return false;
     }
 }
