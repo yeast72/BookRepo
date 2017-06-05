@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -61,17 +62,20 @@ public class CartActivity extends AppCompatActivity {
 
                 if (checkCanPurchase() == true) {
                     Toast.makeText(getApplicationContext(), "Completed!", Toast.LENGTH_SHORT).show();
-                    user.setBalance(user.getBalance() - balance);
-
+                    balance = calculatePrice(MainActivity.cartList);
+                    user.setBalance(user.getBalance() -  balance);
+                    balanceText.setText(user.getBalance() + "");
                     for (int i = 0; i < cartList.size(); i++) {
                         user.getBooksList().add(cartList.get(i));
                     }
                     cartList.clear();
+                    balance = 0;
                 } else {
                     Toast.makeText(getApplicationContext(),"Not completed!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
         alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(),"Cancel", Toast.LENGTH_SHORT).show();
@@ -79,7 +83,9 @@ public class CartActivity extends AppCompatActivity {
         });
         alert.setIcon(android.R.drawable.ic_dialog_alert);
         alert.show();
-        balanceText.setText(user.getBalance() + "");
+
+
+
     }
 
     public boolean checkCanPurchase(){
